@@ -54,3 +54,6 @@ C:\Users\Иван\Documents\Visual Studio 2013\Projects\Employees1\Employees1\ob
 C:\Users\Иван\Documents\Visual Studio 2013\Projects\Employees1\Employees1\obj\Debug\Employees1.g.resources
 C:\Users\Иван\Documents\Visual Studio 2013\Projects\Employees1\Employees1\obj\Debug\Employees1.Properties.Resources.resources
 C:\Users\Иван\Documents\Visual Studio 2013\Projects\Employees1\Employees1\obj\Debug\Employees1.csproj.GenerateResource.Cache
+C:\Users\Ivan\Documents\Visual Studio 2013\Projects\Employees1\Employees1\bin\Debug\Employees1.exe.config
+C:\Users\Ivan\Documents\Visual Studio 2013\Projects\Employees1\Employees1\obj\Debug\Employees1.exe
+C:\Users\Ivan\Documents\Visual Studio 2013\Projects\Employees1\Employees1\obj\Debug\Employees1.pdb
