@@ -73,7 +73,7 @@ namespace Employees1
                 (TrayMenu.Items[0] as System.Windows.Controls.MenuItem).Header = "Спрятать";
                 WindowState = CurrentWindowState;
                 Activate(); // обязательно нужно отдать фокус окну,
-                // иначе пользователь сильно удивится, когда увидит окно
+                // иначе пользователь сильно удивится, когда увидит окно ававав
                 // но не сможет в него ничего ввести с клавиатуры
             }
         }
