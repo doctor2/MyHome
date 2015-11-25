@@ -22,7 +22,7 @@
             <TabItem.Header>
                 <TextBlock Text="Просмотр" />
             </TabItem.Header>
-            <Grid  Margin="0,0,0,0" Background="{StaticResource BackgroundWindowResource}" ShowGridLines="True">
+            <Grid  Margin="0,0,0,0" Background="{StaticResource BackgroundWindowResource}" ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
