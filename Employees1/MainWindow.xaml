@@ -1,0 +1,137 @@
+﻿<Window x:Class="Employees1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="База сотрудников" Height="681.582" Width="620.522" Loaded="Page_Loaded">
+    <Window.Resources>
+        <ContextMenu x:Key="TrayMenu">
+            <MenuItem Header="Спрятать" Click="ShowHideMainWindow" />
+            <MenuItem Header="Item2" />
+            <Separator />
+            <MenuItem Header="Выход" Click="MenuExitClick" />
+        </ContextMenu>
+    </Window.Resources>
+    <!-- Новое для вывода                     
+    <Window.Resources>
+        <CollectionViewSource x:Key="ItemCollectionViewSource"  CollectionViewType="ListCollectionView"/>
+    </Window.Resources>
+    DataContext="{StaticResource ItemCollectionViewSource}"
+    "-->
+
+    <TabControl Margin="0,0,0,0">
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="Просмотр" />
+            </TabItem.Header>
+            <Grid  Margin="0,0,0,0" Background="{StaticResource BackgroundWindowResource}" ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="FiltrCor" Margin="404,17,25,0" MaxWidth="300" Height="30" VerticalAlignment="Top" SelectionChanged="FiltrCor_SelectionChanged"/>
+                <ComboBox x:Name="FiltrPers" MaxWidth="300" Height="30" Margin="43,17,344,0" VerticalAlignment="Top" SelectionChanged="FiltrPers_SelectionChanged "  IsEditable="True" />
+                
+
+                    <!-- Первоначальный вывод Background="#FFB3D9E5"
+                <DataGrid x:Name="Employeer" Margin="10,68,10,45" AutoGenerateColumns="True" MaxWidth="1000"  
+                    RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" 
+                    BorderThickness="3"  IsReadOnly="true" RowHeight="25" Cursor="Hand" CanUserAddRows="true" 
+                    CanUserDeleteRows="True" IsSynchronizedWithCurrentItem="True">
+                   </DataGrid>  -->
+               
+                    <DataGrid Grid.Row="1" x:Name="Employeer"  MaxWidth="1000" Margin="10,20,10,60"
+                    RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB"  BorderThickness="3"   
+                    ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False"  IsReadOnly="true"  LoadingRow="Employeer_LoadingRow">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="70*" Binding="{Binding Path=FIO}" Header="ФИО" FontWeight="Bold"/>
+                            <DataGridTextColumn Width="60*" Binding="{Binding Path=TypePost}" Header="Должность" />
+                            <DataGridTextColumn Width="70*" Binding="{Binding Path=Department}" Header="Отдел"/>
+                            <DataGridTextColumn Width="100*" Binding="{Binding Path=TypeCor}" Header="Тип корочек"/>
+                            <DataGridTextColumn Width="60*" Binding="{Binding Path=Expiration_date}" Header="Дата истечения срока" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                <Button Grid.Row="1" Content="Print" Click="OnDataGridPrinting" MaxWidth="100" Height="30" VerticalAlignment="Bottom" Canvas.Left="497" Canvas.Top="44" Margin="500,0,10,20" />
+                
+
+
+
+            </Grid>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock  Text="Редактировать" />
+            </TabItem.Header>
+            <Grid Background="{StaticResource BackgroundWindowResource}" >
+                <Border  BorderBrush="#FF1F33EB" BorderThickness="3"  MaxWidth="1000"  Height="582" Margin="10,20,10,0" VerticalAlignment="Top" >
+                    <Grid Margin="0">
+                        <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="1,0,0,0"/>
+                        <Label Content="Добавляем строку в таблице"  Height="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,0,1,0" FontWeight="Bold"/>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="40,143,45,0" Height="88" VerticalAlignment="Top" MaxWidth="600">
+                            <Grid Margin="-1">
+                                <Button x:Name="EditPost" Content="Изменить" HorizontalAlignment="Right" Height="25" Margin="0,59,151,0" VerticalAlignment="Top" Width="90"  RenderTransformOrigin="-0.19,0.083" Click="EditPost_Click"/>
+                                <TextBox x:Name="AddPos" Height="49" Margin="40,29,287,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                                <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="0,-1,-1,0"/>
+                                <Label Content="Должность"  Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="251" Margin="86,-1,86,0" FontWeight="Bold"/>
+                                <Button x:Name="DeletePost" Content="Удалить" Height="25" Margin="0,59,71,0" VerticalAlignment="Top" Click="DeletePost_Click" HorizontalAlignment="Right" Width="60"/>
+                                <ComboBox x:Name="ChekPos" Height="24" Margin="0,30,71,0" VerticalAlignment="Top" SelectionChanged="ChekPos_SelectionChanged" HorizontalAlignment="Right" Width="180" />
+
+                            </Grid>
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="40,236,45,0" Height="88" VerticalAlignment="Top" MaxWidth="600">
+                            <Grid Margin="-1">
+                                <Button x:Name="EditDepart" Content="Изменить" HorizontalAlignment="Right" Height="25" Margin="0,59,151,0" VerticalAlignment="Top" Width="90"  RenderTransformOrigin="-0.19,0.083" Click="EditDepart_Click" />
+                                <TextBox x:Name="AddDepart" Height="49" Margin="40,29,287,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                                <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="0,-1,-1,0"/>
+                                <Label Content="Отдел"  Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="251" Margin="86,-1,86,0" FontWeight="Bold"/>
+                                <Button x:Name="DeleteDepart" Content="Удалить" Height="25" Margin="0,59,71,0" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="60" Click="DeleteDepart_Click"/>
+                                <ComboBox x:Name="ChekDepart" Height="24" Margin="0,30,71,0" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="180" SelectionChanged="ChekDepart_SelectionChanged" />
+
+                            </Grid>
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="40,329,45,0" Height="88" VerticalAlignment="Top" MaxWidth="600">
+                            <Grid Margin="-1">
+                                <TextBox x:Name="AddCor" Height="48" Margin="40,30,292,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                                <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="1,0,0,0"/>
+                                <ComboBox x:Name="ChekCor" Height="24" Margin="0,30,70,0" VerticalAlignment="Top" SelectionChanged="ChekCor_SelectionChanged" HorizontalAlignment="Right" Width="180"/>
+                                <Label Content="Типы корочек"  Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,-2,0,0" FontWeight="Bold"/>
+                                <Button x:Name="DeleteCor" Content="Удалить" HorizontalAlignment="Right" Height="25" Margin="0,59,70,0" VerticalAlignment="Top" Width="60" Click="DeleteCor_Click"/>
+                                <Button x:Name="EditCorochka" Content="Изменить" HorizontalAlignment="Right" Height="25" Margin="0,59,150,0" VerticalAlignment="Top" Width="90"  RenderTransformOrigin="-0.19,0.083" Click="EditCorochka_Click"/>
+
+                            </Grid>
+
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="40,50,45,0" Height="88" VerticalAlignment="Top" MaxWidth="600">
+                            <Grid Margin="-1">
+                                <TextBox x:Name="AddPerson" Height="48" Margin="40,30,292,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                                <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="1,0,0,0"/>
+                                <Label Content="Сотрудник"  Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,-2,0,0" FontWeight="Bold"/>
+                                <Button x:Name="DeletePerson" Content="Удалить" Height="25" Margin="0,59,70,0" VerticalAlignment="Top" Click="DeletePerson_Click" HorizontalAlignment="Right" Width="60"/>
+                                <Button x:Name="EditPerson" Content="Изменить" HorizontalAlignment="Right" Height="25" Margin="0,59,150,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="-0.19,0.083" Click="EditPerson_Click"/>
+                                <ComboBox x:Name="ChekPerson" Height="24" Margin="0,30,70,0" VerticalAlignment="Top" SelectionChanged="ChekPerson_SelectionChanged" HorizontalAlignment="Right" Width="180" />
+
+                            </Grid>
+
+                        </Border>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="40,422,45,0" Height="88" VerticalAlignment="Top" MaxWidth="600">
+                            <Grid Margin="-1">
+                                <Rectangle Fill="#FFF4F4F5" Height="24" Stroke="Black" VerticalAlignment="Top" Margin="1,0,0,0"/>
+                                <ComboBox x:Name="ChekDate" Height="24" Margin="0,30,70,0" VerticalAlignment="Top"  HorizontalAlignment="Right" Width="180" SelectionChanged="ChekDate_SelectionChanged"/>
+                                <DatePicker x:Name="SelectDate" Margin="40,42,302,20" />
+                                <Label Content="Дата истечения срока действия корочек"  Height="27" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="0,-2,0,0" FontWeight="Bold"/>
+                                <Button x:Name="DeleteDate" Content="Удалить" HorizontalAlignment="Right" Height="25" Margin="0,59,70,0" VerticalAlignment="Top" Width="60" Click="DeleteDate_Click"/>
+                                <Button x:Name="EditDate" Content="Изменить" HorizontalAlignment="Right" Height="25" Margin="0,59,150,0" VerticalAlignment="Top" Width="90"  RenderTransformOrigin="-0.19,0.083" Click="EditDate_Click" />
+
+                            </Grid>
+
+                        </Border>
+                        <Button x:Name="AddEmployeer" Content="Добавить" HorizontalAlignment="Left" Height="25" Margin="415,535,0,0" VerticalAlignment="Top" Width="60"  RenderTransformOrigin="0.505,0.57" Click="AddEmployeer_Click"/>
+                        <Button x:Name="DeleteEmployeer" Content="Удалить" HorizontalAlignment="Left" Height="25" Margin="496,535,0,0" VerticalAlignment="Top" Width="60"  RenderTransformOrigin="0.505,0.57" Click="DeleteEmployeer_Click"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </TabItem>
+
+
+    </TabControl>
+</Window>
