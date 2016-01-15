@@ -13,6 +13,7 @@ namespace Employees1
 {
     public class Empl
     {
+		int sga;
         public string FIO { get; set; }
         public string TypePost { get; set; }
         public string TypeCor { get; set; }
